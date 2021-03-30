@@ -1,0 +1,3 @@
+Status Articles =   1 -> Waiting for Accept
+                    2 -> Accepted
+                    0 -> Rejected

@@ -26,7 +26,8 @@
                                     <th>Content</th>
                                     <th>Picture</th>
                                     <th>Author</th>
-                                    <th>Posted At</th>
+                                    <th>Status</th>
+                                    <th>Type</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -40,7 +41,18 @@
                                         <img src="{{ asset('/storage/article/picture/' . $a->picture) }}" alt="" class="img-thumbnail">
                                     </td>
                                     <td><i>{{ $a->user->name }}</i></td>
-                                    <td>{{ $a->created_at->diffForHumans() . ', ' . $a->created_at }}</td>
+                                    <td>
+                                        @if ($a->status == 1)
+                                            <b>Waiting for Accept</b>
+                                        @elseif ($a->status == 2)
+                                            <b>Accepted</b>
+                                        @elseif ($a->status == 0)
+                                            <b>Rejected</b>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ $a->type }}
+                                    </td>
                                     <td>
                                         <a href="{{ route('admin.article.show', $a->id) }}" class="btn btn-info my-1">Detail</a>
                                         <a href="{{ route('admin.article.edit', $a->id) }}" class="btn btn-warning my-1">Edit</a>
@@ -53,7 +65,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="6">
+                                    <td colspan="8">
                                         <h4 class="text-center">Data Not Found</h4>
                                     </td>
                                 </tr>

@@ -33,6 +33,24 @@
                                     <td><b>{{ $article->title }}</b></td>
                                 </tr>
                                 <tr>
+                                    <td>Type</td>
+                                    <td>:</td>
+                                    <td><b>{{ $article->type }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td>:</td>
+                                    <td>
+                                        @if ($article->status == 1)
+                                            <b>Waiting for Accept</b>
+                                        @elseif ($article->status == 2)
+                                            <b>Accepted</b>
+                                        @elseif ($article->status == 0)
+                                            <b>Rejected</b>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Content</td>
                                     <td>:</td>
                                     <td>{!! $article->content !!}</td>

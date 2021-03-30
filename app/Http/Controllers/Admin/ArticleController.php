@@ -48,6 +48,7 @@ class ArticleController extends Controller
 
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
+            'type' => ['required'],
             'content' => ['required', 'string', 'min:5'],
             'picture' => ['required', 'mimes:jpg,png,jpeg,svg']
         ]);
@@ -67,6 +68,8 @@ class ArticleController extends Controller
             'slug' => Str::slug($request->title),
             'content' => $request->content,
             'picture' => $imgName,
+            'status' => 1,
+            'type' => $request->type
         ]);
 
         session()->flash('success', 'Article was created successfully!');
@@ -114,8 +117,9 @@ class ArticleController extends Controller
 
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
+            'type' => ['required'],
             'content' => ['required', 'string', 'min:5'],
-            'picture' => ['mimes:jpg,png,jpeg,svg']
+            'picture' => ['required', 'mimes:jpg,png,jpeg,svg']
         ]);
 
         $oldArticle = Article::findOrFail($id);
@@ -136,6 +140,8 @@ class ArticleController extends Controller
             'slug' => Str::slug($request->title),
             'content' => $request->content,
             'picture' => $imgName,
+            'status' => 1,
+            'type' => $request->type
         ]);
 
         session()->flash('success', 'Article was edited successfully!');

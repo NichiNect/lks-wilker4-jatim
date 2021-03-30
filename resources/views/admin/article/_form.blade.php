@@ -8,6 +8,18 @@
         @enderror
     </div>
     <div class="form-group">
+        <label for="type">Type</label>
+        <select name="type" id="type" class="form-control @error('type') is-invalid @enderror">
+            <option value="{{ $article->type }}">{{ $article->type }}</option>
+            <option value="" selected disabled>-- Choose one --</option>
+            <option value="Berita">Berita</option>
+            <option value="Artikel">Artikel</option>
+        </select>
+        @error('type')
+            <small class="text-danger">{{ $message }}</small>
+        @enderror
+    </div>
+    <div class="form-group">
         <label for="picture">Picture Thumbnail</label>
         <div class="row">
             <div class="col-md-7">
@@ -37,6 +49,17 @@
         <label for="title">Title</label>
         <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" placeholder="Fill the title..">
         @error('title')
+            <small class="text-danger">{{ $message }}</small>
+        @enderror
+    </div>
+    <div class="form-group">
+        <label for="type">Type</label>
+        <select name="type" id="type" class="form-control @error('type') is-invalid @enderror">
+            <option value="" selected disabled>-- Choose one --</option>
+            <option value="Berita">Berita</option>
+            <option value="Artikel">Artikel</option>
+        </select>
+        @error('type')
             <small class="text-danger">{{ $message }}</small>
         @enderror
     </div>
