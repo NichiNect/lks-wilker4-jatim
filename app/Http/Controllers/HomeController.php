@@ -26,4 +26,15 @@ class HomeController extends Controller
         $articles = Article::where('status', 2)->latest()->limit(6)->get();
         return view('frontend.show-article', compact('article', 'articles', 'comments'));
     }
+
+    public function allArticle()
+    {
+        if (isset($_GET['search'])) {
+            $key = $_GET['search'];
+            $articles = Article::where('title', 'LIKE', "%$key%")->where('status', 2)->latest()->paginate(10);
+        } else {
+            $articles = Article::where('status', 2)->latest()->paginate(10);
+        }
+        return view('frontend.all-article', compact('articles'));
+    }
 }

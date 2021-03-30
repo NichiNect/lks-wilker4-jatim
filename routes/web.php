@@ -28,6 +28,7 @@ Auth::routes([
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/show-article/{article:slug}', [App\Http\Controllers\HomeController::class, 'showArticle'])->name('frontend.showarticle');
+Route::get('/all-article', [App\Http\Controllers\HomeController::class, 'allArticle'])->name('frontend.allarticle');
 
 Route::post('/tambahkan-komentar/{article:id}', [CommentController::class, 'store'])->name('comment.store');
 

@@ -98,7 +98,7 @@
         </div>
         <div class="row text-center mt-4">
             <div class="col-lg-12">
-                <a href="" class="btn btn-outline-secondary">Load more..</a>
+                <a href="{{ route('frontend.allarticle') }}" class="btn btn-outline-secondary">Load more..</a>
             </div>
         </div>
     </div>
