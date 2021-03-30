@@ -75,8 +75,8 @@
         </div>
         <div class="row">
             @foreach ($articles as $a)
-                <div class="col-md-6">
-                    <div class="card shadow-sm">
+                <div class="col-md-6 my-2">
+                    <div class="card kard shadow-sm">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
@@ -144,4 +144,16 @@
     <p>Presented By &copy; Yoni Widhi {{ date('Y', time()) }}</p>
 </footer>
 
+@endsection
+
+@section('script')
+<script>
+$(document).ready(() => {
+    $('.kard').mouseover(function() {
+        $(this).addClass('shadow-lg');
+    }).mouseleave(function() {
+        $(this).removeClass('shadow-lg');
+    })
+})
+</script>
 @endsection

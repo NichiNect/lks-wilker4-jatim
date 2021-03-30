@@ -17,9 +17,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $this->authorize('admin');
+        // $this->authorize('admin');
 
-        $articles = Article::latest()->get();
+        $articles = Article::with('user')->latest()->paginate(10);
         
         return view('admin.article.index', compact('articles'));
     }
@@ -31,7 +31,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $this->authorize('admin');
+        // $this->authorize('admin');
 
         return view('admin.article.create');
     }
@@ -44,7 +44,7 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('admin');
+        // $this->authorize('admin');
 
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
@@ -84,7 +84,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $this->authorize('admin');
+        // $this->authorize('admin');
 
         $article = Article::findOrFail($id);
         return view('admin.article.show', compact('article'));
@@ -119,7 +119,7 @@ class ArticleController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'type' => ['required'],
             'content' => ['required', 'string', 'min:5'],
-            'picture' => ['required', 'mimes:jpg,png,jpeg,svg']
+            'picture' => ['mimes:jpg,png,jpeg,svg']
         ]);
 
         $oldArticle = Article::findOrFail($id);
@@ -165,6 +165,19 @@ class ArticleController extends Controller
         $article->delete();
 
         session()->flash('success', 'Article was deleted successfully!');
+        return redirect()->route('admin.article.index');
+    }
+
+    /**
+     * ACC Request Article
+     */
+    public function acc($id)
+    {
+        $article = Article::findOrFail($id)->update([
+            'status' => 2
+        ]);
+
+        session()->flash('success', 'Article was accepted!');
         return redirect()->route('admin.article.index');
     }
 }

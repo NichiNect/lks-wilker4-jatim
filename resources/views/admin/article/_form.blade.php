@@ -10,8 +10,8 @@
     <div class="form-group">
         <label for="type">Type</label>
         <select name="type" id="type" class="form-control @error('type') is-invalid @enderror">
-            <option value="{{ $article->type }}">{{ $article->type }}</option>
-            <option value="" selected disabled>-- Choose one --</option>
+            <option value="{{ $article->type }}" selected>{{ $article->type }}</option>
+            <option value="" disabled>-- Choose one --</option>
             <option value="Berita">Berita</option>
             <option value="Artikel">Artikel</option>
         </select>

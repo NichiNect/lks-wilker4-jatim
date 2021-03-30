@@ -57,6 +57,7 @@
 <div class="row mx-4 my-5">
     <div class="col-lg-6">
         <h2>Komentar Lainnya</h2>
+        <x-flash_message></x-flash_message>
         @forelse ($comments as $comment)
         <div class="card shadow-sm my-3">
             <div class="card-header">{{ $comment->user->name . ', ' . $comment->created_at->diffForHumans() }}</div>
@@ -75,7 +76,6 @@
 <div class="row mx-4">
     <div class="col-lg-6">
         <h2>Tuliskan Komentar</h2>
-        <x-flash_message></x-flash_message>
         <form action="{{ route('comment.store', $article->id) }}" method="POST">
             @csrf
             <div class="form-group">

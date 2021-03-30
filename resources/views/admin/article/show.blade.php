@@ -65,7 +65,7 @@
                                 <tr>
                                     <td>Author</td>
                                     <td>:</td>
-                                    <td>{{ $article->user->name }}</td>
+                                    <td><i>{{ $article->user->name }}</i></td>
                                 </tr>
                                 <tr>
                                     <td>Created At</td>

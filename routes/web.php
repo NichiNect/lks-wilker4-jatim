@@ -41,4 +41,6 @@ Route::prefix('admin')->middleware('auth')->group(function() {
     Route::get('/edit-article/{id}', [ArticleController::class, 'edit'])->name('admin.article.edit');
     Route::put('/edit-article/{id}', [ArticleController::class, 'update'])->name('admin.article.update');
     Route::delete('/delete-article/{id}', [ArticleController::class, 'destroy'])->name('admin.article.destroy');
+
+    Route::put('/acc-article/{id}', [ArticleController::class, 'acc'])->name('admin.article.acc');
 });

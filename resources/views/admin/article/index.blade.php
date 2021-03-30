@@ -34,7 +34,7 @@
                             <tbody>
                                 @forelse ($articles as $a)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{ $articles->count() * ($articles->currentPage() - 1) + $loop->iteration }}</td>
                                     <td>{{ $a->title }}</td>
                                     <td>{{ Str::limit($a->content, 150) }}</td>
                                     <td>
@@ -55,12 +55,21 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('admin.article.show', $a->id) }}" class="btn btn-info my-1">Detail</a>
+                                        @can('admin')
                                         <a href="{{ route('admin.article.edit', $a->id) }}" class="btn btn-warning my-1">Edit</a>
                                         <form action="{{ route('admin.article.destroy', $a->id) }}" method="post" class="d-inline">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger my-1" onclick="return confirm('Are you sure to delete this?')">Delete</button>
                                         </form>
+                                        @if ($a->status == 1)
+                                        <form action="{{ route('admin.article.acc', $a->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('put')
+                                            <button type="submit" class="btn btn-success my-1" onclick="return confirm('Are you sure to ACC this request?')">ACC Request</button>
+                                        </form>
+                                        @endif
+                                        @endcan
                                     </td>
                                 </tr>
                                 @empty
@@ -72,6 +81,7 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        {{ $articles->links() }}
                     </div>
                 </div>
             </div>

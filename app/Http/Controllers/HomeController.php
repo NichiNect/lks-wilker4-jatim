@@ -15,15 +15,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $articles = Article::latest()->limit(6)->get();
+        $articles = Article::where('status', 2)->latest()->limit(6)->get();
         return view('home', compact('articles'));
     }
 
     public function showArticle(Article $article)
     {
-        $comments = Comment::where('article_id', $article->id)->latest()->limit(10)->get();
+        $comments = Comment::with('user')->where('article_id', $article->id)->latest()->limit(10)->get();
         // dd($article);
-        $articles = Article::latest()->limit(6)->get();
+        $articles = Article::where('status', 2)->latest()->limit(6)->get();
         return view('frontend.show-article', compact('article', 'articles', 'comments'));
     }
 }
