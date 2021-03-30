@@ -17,6 +17,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
+        $this->authorize('admin');
+
         $articles = Article::latest()->get();
         
         return view('admin.article.index', compact('articles'));
@@ -29,6 +31,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
+        $this->authorize('admin');
+
         return view('admin.article.create');
     }
 
@@ -40,6 +44,8 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('admin');
+
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string', 'min:5'],
@@ -75,6 +81,8 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('admin');
+
         $article = Article::findOrFail($id);
         return view('admin.article.show', compact('article'));
     }
@@ -87,6 +95,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('admin');
+
         $article = Article::findOrFail($id);
         return view('admin.article.edit', compact('article'));
     }
@@ -100,6 +110,8 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('admin');
+
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string', 'min:5'],
@@ -138,6 +150,8 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('admin');
+        
         $article = Article::findOrFail($id);
 
         Storage::disk('public')->delete('/article/picture/' . $article->picture);

@@ -39,7 +39,7 @@
                                     <td>
                                         <img src="{{ asset('/storage/article/picture/' . $a->picture) }}" alt="" class="img-thumbnail">
                                     </td>
-                                    <td>{{ $a->user->name }}</td>
+                                    <td><i>{{ $a->user->name }}</i></td>
                                     <td>{{ $a->created_at->diffForHumans() . ', ' . $a->created_at }}</td>
                                     <td>
                                         <a href="{{ route('admin.article.show', $a->id) }}" class="btn btn-info my-1">Detail</a>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,11 +20,16 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Auth::routes();
+Auth::routes([
+    // 'register' => false,
+    'forgot_password' => false,
+]);
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('admin')->middleware('auth')->group(function() {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
     Route::get('/article', [ArticleController::class, 'index'])->name('admin.article.index');
     Route::get('/create-new-article', [ArticleController::class, 'create'])->name('admin.article.create');
     Route::post('/create-new-article', [ArticleController::class, 'store'])->name('admin.article.store');

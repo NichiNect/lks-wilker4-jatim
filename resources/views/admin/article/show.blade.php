@@ -6,8 +6,15 @@
         <div class="col-lg-12">
             <h1>Create New Article</h1>
 
-            <div class="my-4">
+            <div class="my-3">
                 <x-flash_message></x-flash_message>
+                <a href="{{ route('admin.article.show', $article->id) }}" class="btn btn-info">Detail</a>
+                <a href="{{ route('admin.article.edit', $article->id) }}" class="btn btn-warning">Edit</a>
+                <form action="{{ route('admin.article.destroy', $article->id) }}" method="post" class="d-inline">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete this?')">Delete</button>
+                </form>
             </div>
         </div>
     </div>
