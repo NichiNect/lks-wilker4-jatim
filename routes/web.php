@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,9 @@ Auth::routes([
 ]);
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/show-article/{article:slug}', [App\Http\Controllers\HomeController::class, 'showArticle'])->name('frontend.showarticle');
+
+Route::post('/tambahkan-komentar/{article:id}', [CommentController::class, 'store'])->name('comment.store');
 
 Route::prefix('admin')->middleware('auth')->group(function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

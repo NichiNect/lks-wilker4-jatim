@@ -2,20 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -23,6 +15,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $articles = Article::latest()->limit(6)->get();
+        return view('home', compact('articles'));
+    }
+
+    public function showArticle(Article $article)
+    {
+        $comments = Comment::where('article_id', $article->id)->latest()->limit(10)->get();
+        // dd($article);
+        $articles = Article::latest()->limit(6)->get();
+        return view('frontend.show-article', compact('article', 'articles', 'comments'));
     }
 }

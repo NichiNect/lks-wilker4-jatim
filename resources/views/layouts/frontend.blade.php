@@ -23,9 +23,9 @@
 </head>
 <body>
     <div id="app">
-        <x-nav_admin></x-nav_admin>
+        <x-nav_frontend></x-nav_frontend>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>
