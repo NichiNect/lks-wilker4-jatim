@@ -29,3 +29,10 @@
 
 </div>
 @endsection
+
+@section('script')
+<script src="https://cdn.ckeditor.com/4.16.0/basic/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('content')
+</script>
+@endsection

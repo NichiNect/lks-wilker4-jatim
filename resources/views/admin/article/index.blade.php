@@ -36,7 +36,7 @@
                                 <tr>
                                     <td>{{ $articles->count() * ($articles->currentPage() - 1) + $loop->iteration }}</td>
                                     <td>{{ $a->title }}</td>
-                                    <td>{{ Str::limit($a->content, 150) }}</td>
+                                    <td>{!! Str::limit($a->content, 150) !!}</td>
                                     <td>
                                         <img src="{{ asset('/storage/article/picture/' . $a->picture) }}" alt="" class="img-thumbnail">
                                     </td>
