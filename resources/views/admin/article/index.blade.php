@@ -9,6 +9,14 @@
             <div class="my-4">
                 <a href="{{ route('admin.article.create') }}" class="btn btn-outline-primary">Create New Article</a>
                 <x-flash_message></x-flash_message>
+                <form action="" method="get">
+                    <div class="input-group my-3">
+                        <input type="text" name="search" id="search" class="form-control" placeholder="Search by title.." style="max-width: 40%;">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                        </div>
+                      </div>
+                </form>
             </div>
         </div>
     </div>

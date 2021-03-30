@@ -43,7 +43,7 @@
                             <a href="{{ route('frontend.showarticle', $a) }}">{{ Str::limit($a->title, 20) }}</a>
                         </h4>
                         <p>
-                            {{ Str::limit($a->content, 25) }}
+                            {!! Str::limit($a->content, 25) !!}
                         </p>
                     </div>
                 </div>

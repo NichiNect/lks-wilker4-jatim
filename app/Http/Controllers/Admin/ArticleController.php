@@ -18,8 +18,12 @@ class ArticleController extends Controller
     public function index()
     {
         // $this->authorize('admin');
-
-        $articles = Article::with('user')->latest()->paginate(10);
+        if(isset($_GET['search'])) {
+            $key = $_GET['search'];
+            $articles = Article::with('user')->where('title', 'LIKE', "%$key%")->latest()->paginate(10);
+        } else {
+            $articles = Article::with('user')->latest()->paginate(10);
+        }
         
         return view('admin.article.index', compact('articles'));
     }
