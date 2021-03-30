@@ -28,4 +28,7 @@ Route::prefix('admin')->middleware('auth')->group(function() {
     Route::get('/create-new-article', [ArticleController::class, 'create'])->name('admin.article.create');
     Route::post('/create-new-article', [ArticleController::class, 'store'])->name('admin.article.store');
     Route::get('/show-detail-article/{id}', [ArticleController::class, 'show'])->name('admin.article.show');
+    Route::get('/edit-article/{id}', [ArticleController::class, 'edit'])->name('admin.article.edit');
+    Route::put('/edit-article/{id}', [ArticleController::class, 'update'])->name('admin.article.update');
+    Route::delete('/delete-article/{id}', [ArticleController::class, 'destroy'])->name('admin.article.destroy');
 });

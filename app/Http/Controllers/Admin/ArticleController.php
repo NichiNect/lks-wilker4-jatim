@@ -6,6 +6,7 @@ use App\Models\Article;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -54,8 +55,6 @@ class ArticleController extends Controller
             $imgName = '';
         }
 
-        // dd($imgName);
-
         $article = Article::create([
             'user_id' => auth()->user()->id,
             'title' => $request->title,
@@ -88,7 +87,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::findOrFail($id);
+        return view('admin.article.edit', compact('article'));
     }
 
     /**
@@ -100,7 +100,34 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'content' => ['required', 'string', 'min:5'],
+            'picture' => ['mimes:jpg,png,jpeg,svg']
+        ]);
+
+        $oldArticle = Article::findOrFail($id);
+
+        if($request->hasFile('picture')) {
+            Storage::disk('public')->delete('/article/picture/' . $oldArticle->picture);
+            $file = $request->file('picture');
+            $extension = $file->extension();
+            $imgName = date('d-m-Y', time()) . '-' . time() . '.' . $extension;
+            $file->storeAs('/article/picture', $imgName, 'public');
+        } else {
+            $imgName = $oldArticle->picture;
+        }
+
+        $oldArticle->update([
+            'user_id' => auth()->user()->id,
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content,
+            'picture' => $imgName,
+        ]);
+
+        session()->flash('success', 'Article was edited successfully!');
+        return redirect()->route('admin.article.index');
     }
 
     /**
@@ -111,6 +138,13 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = Article::findOrFail($id);
+
+        Storage::disk('public')->delete('/article/picture/' . $article->picture);
+
+        $article->delete();
+
+        session()->flash('success', 'Article was deleted successfully!');
+        return redirect()->route('admin.article.index');
     }
 }

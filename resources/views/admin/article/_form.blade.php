@@ -9,7 +9,14 @@
     </div>
     <div class="form-group">
         <label for="picture">Picture Thumbnail</label>
-        <input type="file" name="picture" id="picture" class="form-control @error('picture') is-invalid @enderror" placeholder="Fill the picture..">
+        <div class="row">
+            <div class="col-md-7">
+                <img src="{{ asset('/storage/article/picture/'. $article->picture) }}" alt="" class="img-thumbnail" style="max-width: 500px;">
+            </div>
+            <div class="col-md-5">
+                <input type="file" name="picture" id="picture" class="form-control @error('picture') is-invalid @enderror" placeholder="Fill the picture..">
+            </div>
+        </div>
         @error('picture')
             <small class="text-danger">{{ $message }}</small>
         @enderror

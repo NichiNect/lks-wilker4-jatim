@@ -43,9 +43,11 @@
                                     <td>{{ $a->created_at->diffForHumans() . ', ' . $a->created_at }}</td>
                                     <td>
                                         <a href="{{ route('admin.article.show', $a->id) }}" class="btn btn-info my-1">Detail</a>
-                                        <a href="#" class="btn btn-warning my-1">Edit</a>
-                                        <form action="" method="post" class="d-inline">
-                                            <button type="submit" class="btn btn-danger my-1">Delete</button>
+                                        <a href="{{ route('admin.article.edit', $a->id) }}" class="btn btn-warning my-1">Edit</a>
+                                        <form action="{{ route('admin.article.destroy', $a->id) }}" method="post" class="d-inline">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger my-1" onclick="return confirm('Are you sure to delete this?')">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
