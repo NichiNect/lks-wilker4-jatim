@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Article;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ArticleController extends Controller
 {
@@ -27,7 +28,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.article.create');
     }
 
     /**
@@ -38,7 +39,33 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'content' => ['required', 'string', 'min:5'],
+            'picture' => ['required', 'mimes:jpg,png,jpeg,svg']
+        ]);
+
+        if($request->hasFile('picture')) {
+            $file = $request->file('picture');
+            $extension = $file->extension();
+            $imgName = date('d-m-Y', time()) . '-' . time() . '.' . $extension;
+            $file->storeAs('/article/picture', $imgName, 'public');
+        } else {
+            $imgName = '';
+        }
+
+        // dd($imgName);
+
+        $article = Article::create([
+            'user_id' => auth()->user()->id,
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content,
+            'picture' => $imgName,
+        ]);
+
+        session()->flash('success', 'Article was created successfully!');
+        return redirect()->route('admin.article.index');
     }
 
     /**
@@ -49,7 +76,8 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
+        $article = Article::findOrFail($id);
+        return view('admin.article.show', compact('article'));
     }
 
     /**

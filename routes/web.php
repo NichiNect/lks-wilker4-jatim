@@ -25,4 +25,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::prefix('admin')->middleware('auth')->group(function() {
     Route::get('/article', [ArticleController::class, 'index'])->name('admin.article.index');
+    Route::get('/create-new-article', [ArticleController::class, 'create'])->name('admin.article.create');
+    Route::post('/create-new-article', [ArticleController::class, 'store'])->name('admin.article.store');
+    Route::get('/show-detail-article/{id}', [ArticleController::class, 'show'])->name('admin.article.show');
 });
